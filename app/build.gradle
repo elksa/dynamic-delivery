@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.elksa.ddsample"
-        minSdkVersion 21
+        minSdkVersion 17
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -29,7 +29,7 @@ android {
     }
 
 
-    dynamicFeatures = [":Payments"]
+    dynamicFeatures = [":payments"]
 
 
 }
