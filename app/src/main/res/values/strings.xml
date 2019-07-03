@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Dynamic Delivery Sample</string>
+    <string name="title_payments">Payment Options</string>
 </resources>

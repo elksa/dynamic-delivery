@@ -27,6 +27,11 @@ android {
             enableSplit = true
         }
     }
+
+
+    dynamicFeatures = [":Payments"]
+
+
 }
 
 dependencies {
