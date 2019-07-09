@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +23,9 @@ import com.google.android.play.core.tasks.OnSuccessListener;
 import com.google.android.play.core.tasks.Task;
 
 import java.util.ArrayList;
-import java.util.Set;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,8 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 case SplitInstallSessionStatus.REQUIRES_USER_CONFIRMATION:
                     try {
                         startIntentSender(state.resolutionIntent().getIntentSender(), null, 0, 0, 0);
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         Log.e(TAG, "Error requestig user confirmation: " + e.toString());
                     }
                     break;
@@ -72,37 +71,34 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ButterKnife.bind(this);
+
         moduleImages = "images";
 
         manager = SplitInstallManagerFactory.create(this);
 
-        findViewById(R.id.btn_pictures).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadAndLaunchModule(moduleImages);
-            }
-        });
-
-        findViewById(R.id.btn_delete).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Toast.makeText(MainActivity.this,
-                        "Requesting uninstall of dynamic modules, this will take place some time in the next 24 hours",
-                        Toast.LENGTH_LONG).show();
-
-                manager.deferredUninstall(new ArrayList<>(manager.getInstalledModules())).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        // TODO Log information somewhere, maybe Firebase Analytics.
-                    }
-                });
-            }
-        });
-
         pbProgress = findViewById(R.id.pb_progress);
         txtProgress = findViewById(R.id.txt_progress);
         grpProgress = findViewById(R.id.grp_progress);
+    }
+
+    @OnClick(R.id.btn_pictures)
+    void launchImages() {
+        loadAndLaunchModule(moduleImages);
+    }
+
+    @OnClick(R.id.btn_delete)
+    void uninstallModules() {
+        Toast.makeText(MainActivity.this,
+                "Requesting uninstall of dynamic modules, this will take place some time in the next 24 hours",
+                Toast.LENGTH_LONG).show();
+
+        manager.deferredUninstall(new ArrayList<>(manager.getInstalledModules())).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                // TODO Log information somewhere, maybe Firebase Analytics.
+            }
+        });
     }
 
     @Override
@@ -165,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
             txtProgress.setText(message);
         }
     }
+
     private String getLandingActivityForModule(String moduleName) {
         // TODO Add the rest of the modules
         return moduleName.equals(moduleImages) ? "MainActivity" : null;
