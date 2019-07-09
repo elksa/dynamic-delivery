@@ -72,14 +72,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        moduleImages = getString(R.string.title_images);
+        moduleImages = "images";
 
         manager = SplitInstallManagerFactory.create(this);
 
         findViewById(R.id.btn_pictures).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Show pictures module", Toast.LENGTH_SHORT).show();
+                loadAndLaunchModule(moduleImages);
             }
         });
 
@@ -153,7 +153,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void launchModule(String moduleName) {
-        startActivity(new Intent().setClassName(getPackageName(), getPackageName() +
+        String packageName = "com.elksa.images";
+        //String packageName = getPackageName();
+        startActivity(new Intent().setClassName(getPackageName(), packageName + "." +
                 getLandingActivityForModule(moduleName)));
     }
 
