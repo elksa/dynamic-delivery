@@ -1,10 +1,10 @@
 package com.elksa.images;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.elksa.ddsample.BaseSplitActivity;
+
+public class MainActivity extends BaseSplitActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
