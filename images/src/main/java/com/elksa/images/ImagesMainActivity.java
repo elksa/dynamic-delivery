@@ -1,24 +1,26 @@
 package com.elksa.images;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.elksa.ddsample.BaseSplitActivity;
 
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
-public class MainActivity extends BaseSplitActivity {
+public class ImagesMainActivity extends BaseSplitActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ButterKnife.bind(this);
+        findViewById(R.id.btn_test).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTestMessage();
+            }
+        });
     }
 
-    @OnClick(R2.id.btn_test)
     void showTestMessage() {
         Toast.makeText(this, "Test Butter Knife", Toast.LENGTH_SHORT).show();
     }

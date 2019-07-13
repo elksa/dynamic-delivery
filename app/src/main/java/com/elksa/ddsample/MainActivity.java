@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String getLandingActivityForModule(String moduleName) {
         // TODO Add the rest of the modules
-        return moduleName.equals(moduleImages) ? "MainActivity" : null;
+        return moduleName.equals(moduleImages) ? "ImagesMainActivity" : null;
     }
 
     private void displayLoadingState(SplitInstallSessionState state, String message) {
